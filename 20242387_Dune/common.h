@@ -15,6 +15,17 @@
 #define MAP_HEIGHT	18
 #define MAX_MESSAGES 5  // 최대 메시지 수
 
+/*==================== 상태창 ===========================*/
+typedef struct {
+	POSITION pos;         // 유닛의 현재 위치
+	POSITION dest;        // 유닛의 목표 위치
+	char repr;            // 화면에 표시할 유닛의 문자 표현
+	int health;           // 유닛의 현재 체력
+	int attack_power;     // 유닛의 공격력
+	int move_period;      // 유닛 이동 주기(ms 단위)
+	int next_move_time;   // 다음 이동 시점
+} OBJECT_INFO;
+
 /* ================= 위치와 방향 =================== */
 // 맵에서 위치를 나타내는 구조체
 typedef struct {

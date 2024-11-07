@@ -36,6 +36,9 @@ OBJECT_SAMPLE obj = {
 	.next_move_time = 300
 };
 
+OBJECT_INFO obj_info= {
+};
+
 /* ================= main() =================== */
 int main(void) {
 	srand((unsigned int)time(NULL));

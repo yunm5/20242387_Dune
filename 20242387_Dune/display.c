@@ -11,8 +11,8 @@
 // 출력할 내용들의 좌상단(topleft) 좌표
 const POSITION resource_pos = { 0, 0 };
 const POSITION map_pos = { 1, 0 };
-// 시스템 메시지 표시 위치
-const POSITION message_pos = { 19, 0 }; // 예: 화면 아래쪽에 표시
+const POSITION message_pos = { 19, 0 }; // 시스템 메시지 표시 위치
+const POSITION unit_status_pos = { 0, 61 }; // 유닛 상태 정보를 출력할 위치
 
 
 char backbuf[MAP_HEIGHT][MAP_WIDTH] = { 0 };
@@ -30,14 +30,15 @@ void display_cursor(CURSOR cursor);
 void display(
 	RESOURCE resource,
 	char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH], 
-	CURSOR cursor)
+	CURSOR cursor,
+	OBJECT_INFO obj_info
+)
 {
 	display_resource(resource);
 	display_map(map);
 	display_cursor(cursor);
 	display_system_message();
-
-	//display_object_info();
+	//display_object_info(obj_info);
 	//display_commands();
 	// ...
 }
@@ -97,6 +98,24 @@ void display_system_message() {
 
 	printf("system message:\n");
 
+}
+void display_object_info(OBJECT_INFO* unit) {
+	gotoxy(unit_status_pos);  // 유닛 상태 출력 위치로 커서 이동
+
+	if (unit) {  // 유닛이 선택된 경우
+		//set_color(COLOR_UNIT_STATUS);
+		printf("유닛 상태:\n");
+		printf("위치: (%d, %d)\n", unit->pos.row, unit->pos.column);
+		printf("목표 위치: (%d, %d)\n", unit->dest.row, unit->dest.column);
+		printf("체력: %d\n", unit->health);
+		printf("공격력: %d\n", unit->attack_power);
+		printf("이동 주기: %d ms\n", unit->move_period);
+		printf("다음 이동 시점: %d ms\n", unit->next_move_time);
+	}
+	else {
+		//set_color(COLOR_WARNING);
+		printf("선택된 유닛이 없습니다.\n");
+	}
 }
 
 

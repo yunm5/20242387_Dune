@@ -20,7 +20,8 @@
 void display(
 	RESOURCE resource,
 	char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH],
-	CURSOR cursor
+	CURSOR cursor,
+	OBJECT_INFO obj_info
 );
 void display_system_message(void);
 #endif
