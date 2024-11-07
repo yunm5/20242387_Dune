@@ -74,7 +74,10 @@ int main(void) {
 
 /* ================= subfunctions =================== */
 void intro(void) {
-	printf("DUNE 1.5\n");		
+	printf("DUNE 1.5\n");
+	Sleep(1000);
+	system("cls");
+	printf("Wait for a moment");
 	Sleep(2000);
 	system("cls");
 }

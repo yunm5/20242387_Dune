@@ -11,10 +11,15 @@
 // 출력할 내용들의 좌상단(topleft) 좌표
 const POSITION resource_pos = { 0, 0 };
 const POSITION map_pos = { 1, 0 };
+// 시스템 메시지 표시 위치
+const POSITION message_pos = { 19, 0 }; // 예: 화면 아래쪽에 표시
 
 
 char backbuf[MAP_HEIGHT][MAP_WIDTH] = { 0 };
 char frontbuf[MAP_HEIGHT][MAP_WIDTH] = { 0 };
+
+char messages[MAX_MESSAGES][100];  // 메시지 배열
+int message_count = 0;             // 현재 메시지 수
 
 void project(char src[N_LAYER][MAP_HEIGHT][MAP_WIDTH], char dest[MAP_HEIGHT][MAP_WIDTH]);
 void display_resource(RESOURCE resource);
@@ -30,9 +35,10 @@ void display(
 	display_resource(resource);
 	display_map(map);
 	display_cursor(cursor);
-	// display_system_message()
-	// display_object_info()
-	// display_commands()
+	display_system_message();
+
+	//display_object_info();
+	//display_commands();
 	// ...
 }
 
@@ -83,3 +89,14 @@ void display_cursor(CURSOR cursor) {
 	ch = frontbuf[curr.row][curr.column];
 	printc(padd(map_pos, curr), ch, COLOR_CURSOR);
 }
+
+// 시스템 메시지를 화면에 출력
+void display_system_message() {
+	//set_color(COLOR_MESSAGE); // 메시지 색상 설정
+	gotoxy(message_pos);      // 메시지 출력 시작 위치로 이동
+
+	printf("system message:\n");
+
+}
+
+
