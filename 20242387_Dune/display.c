@@ -25,20 +25,21 @@ void project(char src[N_LAYER][MAP_HEIGHT][MAP_WIDTH], char dest[MAP_HEIGHT][MAP
 void display_resource(RESOURCE resource);
 void display_map(char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH]);
 void display_cursor(CURSOR cursor);
+void display_object_info(OBJECT_INFO* unit);
 
 
 void display(
 	RESOURCE resource,
 	char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH], 
 	CURSOR cursor,
-	OBJECT_INFO obj_info
+	OBJECT_INFO* unit
 )
 {
 	display_resource(resource);
 	display_map(map);
 	display_cursor(cursor);
 	display_system_message();
-	//display_object_info(obj_info);
+	display_object_info(unit);
 	//display_commands();
 	// ...
 }
@@ -99,21 +100,22 @@ void display_system_message() {
 	printf("system message:\n");
 
 }
-void display_object_info(OBJECT_INFO* unit) {
+void display_object_info(OBJECT_INFO* unit) {  // unit이 포인터임을 확인
 	gotoxy(unit_status_pos);  // 유닛 상태 출력 위치로 커서 이동
 
 	if (unit) {  // 유닛이 선택된 경우
-		//set_color(COLOR_UNIT_STATUS);
+		// set_color(COLOR_UNIT_STATUS);
 		printf("유닛 상태:\n");
+		gotoxy((POSITION) { unit_status_pos.row + 1, unit_status_pos.column });
 		printf("위치: (%d, %d)\n", unit->pos.row, unit->pos.column);
 		printf("목표 위치: (%d, %d)\n", unit->dest.row, unit->dest.column);
-		printf("체력: %d\n", unit->health);
+		printf("체력: %d\n", unit->hp);
 		printf("공격력: %d\n", unit->attack_power);
 		printf("이동 주기: %d ms\n", unit->move_period);
 		printf("다음 이동 시점: %d ms\n", unit->next_move_time);
 	}
 	else {
-		//set_color(COLOR_WARNING);
+		// set_color(COLOR_WARNING);
 		printf("선택된 유닛이 없습니다.\n");
 	}
 }

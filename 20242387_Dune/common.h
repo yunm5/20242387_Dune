@@ -15,16 +15,6 @@
 #define MAP_HEIGHT	18
 #define MAX_MESSAGES 5  // 최대 메시지 수
 
-/*==================== 상태창 ===========================*/
-typedef struct {
-	POSITION pos;         // 유닛의 현재 위치
-	POSITION dest;        // 유닛의 목표 위치
-	char repr;            // 화면에 표시할 유닛의 문자 표현
-	int health;           // 유닛의 현재 체력
-	int attack_power;     // 유닛의 공격력
-	int move_period;      // 유닛 이동 주기(ms 단위)
-	int next_move_time;   // 다음 이동 시점
-} OBJECT_INFO;
 
 /* ================= 위치와 방향 =================== */
 // 맵에서 위치를 나타내는 구조체
@@ -53,6 +43,15 @@ typedef enum {
 	d_stay = 0, d_up, d_right, d_left, d_down
 } DIRECTION;
 
+/*==================== 상태창 ===========================*/
+typedef struct {
+	POSITION pos;         // 유닛의 현재 위치
+	POSITION dest;        // 유닛의 목표 위치
+	int hp;           // 유닛의 현재 체력
+	int attack_power;     // 유닛의 공격력
+	int move_period;      // 유닛 이동 주기(ms 단위)
+	int next_move_time;   // 다음 이동 시점
+} OBJECT_INFO;
 
 /* ================= 위치와 방향(2) =================== */
 // 편의성을 위한 함수들. KEY, POSITION, DIRECTION 구조체들을 유기적으로 변환

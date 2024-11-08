@@ -36,7 +36,13 @@ OBJECT_SAMPLE obj = {
 	.next_move_time = 300
 };
 
-OBJECT_INFO obj_info= {
+OBJECT_INFO unit = {
+	.pos = {5, 10},           // 현재 위치
+	.dest = {8, 15},           // 목표 위치
+	.hp = 100,               // 체력
+	.attack_power = 20,                // 공격력
+	.move_period = 2000,              // 이동 주기
+	.next_move_time = 1000               // 다음 이동 시점
 };
 
 /* ================= main() =================== */
@@ -45,7 +51,7 @@ int main(void) {
 
 	init();
 	intro();
-	display(resource, map, cursor);
+	display(resource, map, cursor,&unit);
 
 	while (1) {
 		// loop 돌 때마다(즉, TICK==10ms마다) 키 입력 확인
@@ -69,7 +75,7 @@ int main(void) {
 		sample_obj_move();
 
 		// 화면 출력
-		display(resource, map, cursor);
+		display(resource, map, cursor, &unit);
 		Sleep(TICK);
 		sys_clock += 10;
 	}

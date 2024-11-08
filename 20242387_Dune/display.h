@@ -21,7 +21,9 @@ void display(
 	RESOURCE resource,
 	char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH],
 	CURSOR cursor,
-	OBJECT_INFO obj_info
+	OBJECT_INFO* unit
 );
 void display_system_message(void);
+void display_object_info(OBJECT_INFO* unit);
+
 #endif
