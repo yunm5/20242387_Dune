@@ -12,6 +12,9 @@ void cursor_move(DIRECTION dir);
 void sample_obj_move(void);
 POSITION sample_obj_next_position(void);
 void check_double_click(KEY key); // 더블 클릭 감지 및 커서 이동 처리
+// 함수 프로토타입 선언
+void initialize_map(void);
+void display_map(char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH]);
 
 
 /* ================= control =================== */
@@ -54,6 +57,8 @@ int main(void) {
 	init();
 	intro();
 	display(resource, map, cursor,&unit);
+	initialize_map();
+	display_map(map); // 맵을 화면에 출력하는 함수 호출
 
 	while (1) {
 		// loop 돌 때마다(즉, TICK==10ms마다) 키 입력 확인
@@ -196,6 +201,51 @@ void sample_obj_move(void) {
 	obj.next_move_time = sys_clock + obj.speed;
 }
 
+void initialize_map(void) {
+	// 좌하단 본진(2x2)
+	map[0][15][1] = 'B';
+	map[0][15][2] = 'B';
+	map[0][16][1] = 'B';
+	map[0][16][2] = 'B';
+
+	// 우상단 본진(2x2)
+	map[0][0][57] = 'B';
+	map[0][0][58] = 'B';
+	map[0][1][57] = 'B';
+	map[0][1][58] = 'B';
+
+	// 하베스터 배치
+	map[1][14][3] = 'H';
+	map[1][2][56] = 'H';
+
+	// 스파이스 매장지
+	map[0][13][4] = '5';
+	map[0][4][54] = '5';
+
+	// 장판(2x2)
+	map[0][15][1] = 'P';
+	map[0][15][2] = 'P';
+	map[0][16][1] = 'P';
+	map[0][16][2] = 'P';
+
+	map[0][0][56] = 'P';
+	map[0][0][57] = 'P';
+	map[0][1][56] = 'P';
+	map[0][1][57] = 'P';
+
+	// 중립 샌드웜 배치
+	map[1][6][7] = 'W';
+	map[1][10][49] = 'W';
+
+	// 바위 배치
+	map[0][5][10] = 'R';
+	map[0][8][29] = 'R';
+	map[0][12][19] = 'R';
+	map[0][3][39] = 'R';
+	map[0][4][49] = 'R';
+
+	// 기타 초기 설정 필요 시 추가
+}
 void check_double_click(KEY key) {
 	static KEY last_key = k_none;
 	static clock_t last_time = 0;

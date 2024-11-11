@@ -72,8 +72,22 @@ void display_map(char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH]) {
 	for (int i = 0; i < MAP_HEIGHT; i++) {
 		for (int j = 0; j < MAP_WIDTH; j++) {
 			if (frontbuf[i][j] != backbuf[i][j]) {
-				POSITION pos = {i, j };
-				printc(padd(map_pos, pos), backbuf[i][j], COLOR_DEFAULT);
+				POSITION pos = { i, j };
+				char element = backbuf[i][j];
+				int color = COLOR_DEFAULT;
+
+				// 색깔 지정
+				switch (element) {
+				case 'B': color = COLOR_BLUE; break;  // 본진
+				case 'H': color = COLOR_GREEN; break; // 하베스터
+				case '5': color = COLOR_YELLOW; break; // 스파이스 매장지
+				case 'P': color = COLOR_BLACK; break;  // 장판
+				case 'W': color = COLOR_BROWN; break;  // 샌드웜
+				case 'R': color = COLOR_GRAY; break;   // 바위
+				default: color = COLOR_DEFAULT; break;
+				}
+
+				printc(padd(map_pos, pos), element, color);
 			}
 			frontbuf[i][j] = backbuf[i][j];
 		}

@@ -22,9 +22,20 @@
 #define N_LAYER 2
 #define MAP_WIDTH	60
 #define MAP_HEIGHT	18
+
+//extern char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH];
+
 /* ===================== 메시지 관련 정의 =====================*/
 #define MAX_MESSAGES 5  // 최대 메시지 수
 
+/* =========== 색깔 정의 =========== */
+#define COLOR_BLUE 1
+#define COLOR_GREEN 2
+#define COLOR_YELLOW 3
+#define COLOR_BLACK 4
+#define COLOR_BROWN 5
+#define COLOR_GRAY 6
+#define COLOR_DEFAULT 0
 
 
 /*======방향키 더블 클릭=======*/
@@ -67,6 +78,14 @@ typedef struct {
 	int move_period;      // 유닛 이동 주기(ms 단위)
 	int next_move_time;   // 다음 이동 시점
 } OBJECT_INFO;
+/*==================== 샌드 웜 정의  ===========================*/
+typedef struct {
+	POSITION pos;           // 샌드 웜의 현재 위치
+	int health;             // 샌드 웜의 체력
+	int move_period;        // 이동 주기 (ms 단위)
+	int next_move_time;     // 다음 이동 시간
+	int length;             // 샌드 웜 길이 (보너스 1)
+} SAND_WORM;
 
 /* ================= 위치와 방향(2) =================== */
 // 편의성을 위한 함수들. KEY, POSITION, DIRECTION 구조체들을 유기적으로 변환
