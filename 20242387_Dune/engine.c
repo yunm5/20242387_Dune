@@ -21,6 +21,9 @@ void display_map(char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH]);
 int sys_clock = 0;		// system-wide clock(ms)
 CURSOR cursor = { { 1, 1 }, {1, 1} };
 
+/* ============ 커서 조작 ============ */
+POSITION selected_position = { -1, -1 }; // 선택된 오브젝트 위치 (없을 때 -1)
+bool is_selected = false;           // 선택 상태 추적
 
 /* ================= game data =================== */
 char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH] = { 0 };

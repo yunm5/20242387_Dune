@@ -37,6 +37,10 @@ KEY get_key(void) {
 		case 80: return k_down;
 		default: return k_undef;
 		}
+	case ' ': return k_select; // 스페이스바 선택
+	case 27: return k_cancel; // ESC 키 취소
 	default: return k_undef;
 	}
 }
+
+
