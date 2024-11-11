@@ -108,14 +108,20 @@ void display_object_info(OBJECT_INFO* unit) {  // unit이 포인터임을 확인
 		printf("유닛 상태:\n");
 		gotoxy((POSITION) { unit_status_pos.row + 1, unit_status_pos.column });
 		printf("위치: (%d, %d)\n", unit->pos.row, unit->pos.column);
+		gotoxy((POSITION) { unit_status_pos.row + 2, unit_status_pos.column });
 		printf("목표 위치: (%d, %d)\n", unit->dest.row, unit->dest.column);
+		gotoxy((POSITION) { unit_status_pos.row + 3, unit_status_pos.column });
 		printf("체력: %d\n", unit->hp);
+		gotoxy((POSITION) { unit_status_pos.row + 4, unit_status_pos.column });
 		printf("공격력: %d\n", unit->attack_power);
+		gotoxy((POSITION) { unit_status_pos.row + 5, unit_status_pos.column });
 		printf("이동 주기: %d ms\n", unit->move_period);
+		gotoxy((POSITION) { unit_status_pos.row + 5, unit_status_pos.column });
 		printf("다음 이동 시점: %d ms\n", unit->next_move_time);
 	}
 	else {
 		// set_color(COLOR_WARNING);
+		gotoxy(unit_status_pos);
 		printf("선택된 유닛이 없습니다.\n");
 	}
 }

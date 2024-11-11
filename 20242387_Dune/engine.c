@@ -11,6 +11,7 @@ void outro(void);
 void cursor_move(DIRECTION dir);
 void sample_obj_move(void);
 POSITION sample_obj_next_position(void);
+void check_double_click(KEY key); // 더블 클릭 감지 및 커서 이동 처리
 
 
 /* ================= control =================== */
@@ -59,7 +60,7 @@ int main(void) {
 
 		// 키 입력이 있으면 처리
 		if (is_arrow_key(key)) {
-			cursor_move(ktod(key));
+			check_double_click(key);  // 더블 클릭 감지 함수 호출
 		}
 		else {
 			// 방향키 외의 입력
@@ -192,4 +193,24 @@ void sample_obj_move(void) {
 	map[1][obj.pos.row][obj.pos.column] = obj.repr;
 
 	obj.next_move_time = sys_clock + obj.speed;
+}
+
+void check_double_click(KEY key) {
+	static KEY last_key = k_none;
+	static clock_t last_time = 0;
+	clock_t now = clock();
+	double diff = (double)(now - last_time) * 1000 / CLOCKS_PER_SEC;
+
+	if (key != last_key) {
+		last_key = key;
+		last_time = now;
+	}
+	else if (diff < DOUBLE_CLICK_THRESHOLD) {
+		// 더블 클릭인 경우
+		cursor_move(ktod(key) * MOVE_DISTANCE);  // 두 칸 이동
+	}
+	else {
+		// 더블 클릭이 아닌 경우
+		cursor_move(ktod(key));  // 한 칸 이동
+	}
 }

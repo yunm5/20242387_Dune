@@ -15,6 +15,9 @@
 #define MAP_HEIGHT	18
 #define MAX_MESSAGES 5  // 최대 메시지 수
 
+/*======방향키 더블 클릭=======*/
+#define DOUBLE_CLICK_THRESHOLD 300 // ms 기준
+#define MOVE_DISTANCE 2 // 더블클릭 시 이동 거리
 
 /* ================= 위치와 방향 =================== */
 // 맵에서 위치를 나타내는 구조체
