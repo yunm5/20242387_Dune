@@ -46,6 +46,7 @@ OBJECT_INFO unit = {
 	.next_move_time = 1000               // 다음 이동 시점
 };
 
+
 /* ================= main() =================== */
 int main(void) {
 	srand((unsigned int)time(NULL));

@@ -6,6 +6,15 @@
 #include <Windows.h>
 #include <conio.h>
 #include <assert.h>
+/* =========== 유닛 정의 =========== */
+#define EMPTY ' '
+#define PLATE 'P'
+#define ROCK 'R'
+#define SPICE 'S'
+#define BASE 'B'
+#define AIBASE 'A'
+#define HARVESTER 'H'
+#define SANDWORM 'W'
 
 /* ================= system parameters =================== */
 #define TICK 10		// time unit(ms)
@@ -13,7 +22,10 @@
 #define N_LAYER 2
 #define MAP_WIDTH	60
 #define MAP_HEIGHT	18
+/* ===================== 메시지 관련 정의 =====================*/
 #define MAX_MESSAGES 5  // 최대 메시지 수
+
+
 
 /*======방향키 더블 클릭=======*/
 #define DOUBLE_CLICK_THRESHOLD 300 // ms 기준
@@ -104,5 +116,7 @@ typedef struct {
 	int next_move_time;	// 다음에 움직일 시간
 	int speed;
 } OBJECT_SAMPLE;
+
+
 
 #endif

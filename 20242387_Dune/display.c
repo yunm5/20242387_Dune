@@ -97,7 +97,10 @@ void display_system_message() {
 	//set_color(COLOR_MESSAGE); // 메시지 색상 설정
 	gotoxy(message_pos);      // 메시지 출력 시작 위치로 이동
 
-	printf("system message:\n");
+	printf("시스템 메시지:\n");
+	for (int i = 0; i < message_count; i++) {
+		printf("%s\n", messages[i]);
+	}
 
 }
 void display_object_info(OBJECT_INFO* unit) {  // unit이 포인터임을 확인
@@ -125,5 +128,8 @@ void display_object_info(OBJECT_INFO* unit) {  // unit이 포인터임을 확인
 		printf("선택된 유닛이 없습니다.\n");
 	}
 }
-
-
+// 시스템 메시지 추가 함수
+void add_system_message(const char* msg) {
+	snprintf(messages[message_count], sizeof(messages[message_count]), "%s", msg);
+	message_count++;
+}
