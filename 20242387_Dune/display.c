@@ -144,6 +144,15 @@ void display_object_info(OBJECT_INFO* unit) {  // unit이 포인터임을 확인
 }
 // 시스템 메시지 추가 함수
 void add_system_message(const char* msg) {
+	// 메시지가 꽉 찬 경우, 오래된 메시지 삭제 후 새 메시지 추가
+	if (message_count >= MAX_MESSAGES) {
+		for (int i = 1; i < MAX_MESSAGES; i++) {
+			strcpy_s(messages[i - 1], sizeof(messages[i - 1]), messages[i]); // 안전한 복사
+		}
+		message_count = MAX_MESSAGES - 1;
+	}
+
+	// 새로운 메시지 추가
 	snprintf(messages[message_count], sizeof(messages[message_count]), "%s", msg);
 	message_count++;
 }

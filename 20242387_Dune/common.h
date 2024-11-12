@@ -136,6 +136,5 @@ typedef struct {
 	int speed;
 } OBJECT_SAMPLE;
 
-
-
+DIRECTION get_direction(POSITION from, POSITION to); // get_direction 함수 선언
 #endif

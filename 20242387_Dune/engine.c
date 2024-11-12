@@ -30,9 +30,9 @@ char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH] = { 0 };
 
 RESOURCE resource = { 
 	.spice = 0,
-	.spice_max = 0,
+	.spice_max = 10,
 	.population = 0,
-	.population_max = 0
+	.population_max = 10
 };
 
 OBJECT_SAMPLE obj = {
@@ -80,10 +80,8 @@ int main(void) {
 			case k_undef:
 			default: break;
 			}
-		}
+		}  
 		update_sandworm();
-   
-
 		// 샘플 오브젝트 동작
 		sample_obj_move();
 
@@ -271,6 +269,14 @@ void check_double_click(KEY key) {
 		cursor_move(ktod(key));  // 한 칸 이동
 	}
 }
+// get_direction 함수 구현
+DIRECTION get_direction(POSITION from, POSITION to) {
+	if (from.row < to.row) return d_down;
+	if (from.row > to.row) return d_up;
+	if (from.column < to.column) return d_right;
+	if (from.column > to.column) return d_left;
+	return d_stay; // 목적지와 현재 위치가 같은 경우
+}
 
 POSITION find_nearest_unit(POSITION worm_pos) {
 	POSITION closest_unit = { -1, -1 };
@@ -315,11 +321,20 @@ void sandworm_attack() {
 }
 // 샌드웜의 배설 (스파이스 매장지 생성)
 void sandworm_excrete() {
-	if (rand() % 100 < 10) {  // 약 10% 확률로 배설
+	int a = rand() % 100;
+	if (a < 10) {  // 약 10% 확률로 배설
 		POSITION excrete_pos = sandworm.pos;
 		map[0][excrete_pos.row][excrete_pos.column] = 'S'; // 스파이스 매장지 생성
-
+		
 		// 시스템 메시지 추가
+		if (resource.spice < resource.spice_max) {
+			resource.spice++;
+		}
 		add_system_message("샌드웜이 스파이스를 배설했습니다!");
 	}
+}
+void update_sandworm() {
+	move_sandworm();
+	sandworm_attack();
+	sandworm_excrete();
 }
