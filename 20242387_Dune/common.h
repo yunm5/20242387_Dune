@@ -9,11 +9,13 @@
 /* =========== À¯´Ö Á¤ÀÇ =========== */
 #define EMPTY ' '
 #define PLATE 'P'
+#define BASE_H 'b'
 #define ROCK 'R'
 #define SPICE 'S'
-#define BASE 'B'
+#define BASE_P 'B'
 #define AIBASE 'A'
-#define HARVESTER 'H'
+#define HARVESTER_H 'h'
+#define HARVESTER_P 'H'
 #define SANDWORM 'W'
 
 /* ================= system parameters =================== */
@@ -30,11 +32,11 @@
 
 /* =========== »ö±ò Á¤ÀÇ =========== */
 #define COLOR_BLUE 1
-#define COLOR_GREEN 2
-#define COLOR_YELLOW 3
-#define COLOR_BLACK 4
-#define COLOR_BROWN 5
-#define COLOR_GRAY 6
+#define COLOR_RED 4
+#define COLOR_YELLOW 6
+#define COLOR_WHITE 7
+#define COLOR_PURPLE 5
+#define COLOR_GRAY 8
 #define COLOR_DEFAULT 0
 
 

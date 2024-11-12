@@ -78,6 +78,7 @@ int main(void) {
 			case k_quit: outro();
 			case k_none:
 			case k_undef:
+				break;
 			default: break;
 			}
 		}  
@@ -207,46 +208,54 @@ void sample_obj_move(void) {
 
 void initialize_map(void) {
 	// 좌하단 본진(2x2)
-	map[0][15][1] = 'B';
-	map[0][15][2] = 'B';
-	map[0][16][1] = 'B';
-	map[0][16][2] = 'B';
-
+	map[0][16][1] = BASE_P;
+	map[0][16][2] = BASE_P;
+	map[0][15][1] = BASE_P;
+	map[0][15][2] = BASE_P;
 	// 우상단 본진(2x2)
-	map[0][0][57] = 'B';
-	map[0][0][58] = 'B';
-	map[0][1][57] = 'B';
-	map[0][1][58] = 'B';
+	map[0][1][57] = BASE_H;
+	map[0][1][58] = BASE_H;
+	map[0][2][57] = BASE_H;
+	map[0][2][58] = BASE_H;
 
 	// 하베스터 배치
-	map[1][14][3] = 'H';
-	map[1][2][56] = 'H';
+	map[1][14][1] = HARVESTER_P;
+	map[1][3][58] = HARVESTER_H;
 
 	// 스파이스 매장지
-	map[0][13][4] = '5';
-	map[0][4][54] = '5';
+	map[0][12][1] = SPICE;
+	map[0][5][58] = SPICE;
 
 	// 장판(2x2)
-	map[0][15][1] = 'P';
-	map[0][15][2] = 'P';
-	map[0][16][1] = 'P';
-	map[0][16][2] = 'P';
+	map[0][15][3] = PLATE;
+	map[0][15][4] = PLATE;
+	map[0][16][3] = PLATE;
+	map[0][16][4] = PLATE;
 
-	map[0][0][56] = 'P';
-	map[0][0][57] = 'P';
-	map[0][1][56] = 'P';
-	map[0][1][57] = 'P';
+	
+	map[0][1][55] = PLATE;
+	map[0][1][56] = PLATE;
+	map[0][2][55] = PLATE;
+	map[0][2][56] = PLATE;
 
 	// 중립 샌드웜 배치
-	map[1][6][7] = 'W';
-	map[1][10][49] = 'W';
+	map[1][2][10] = SANDWORM;
+	map[1][10][43] = SANDWORM;
 
 	// 바위 배치
-	map[0][5][10] = 'R';
-	map[0][8][29] = 'R';
-	map[0][12][19] = 'R';
-	map[0][3][39] = 'R';
-	map[0][4][49] = 'R';
+	map[0][5][15] = ROCK;
+	map[0][5][16] = ROCK;
+	map[0][6][15] = ROCK;
+	map[0][6][16] = ROCK;
+
+	map[0][12][29] = ROCK;
+	map[0][12][30] = ROCK;
+	map[0][13][29] = ROCK;
+	map[0][13][30] = ROCK;
+
+	map[0][12][12] = ROCK;
+	map[0][4][49] = ROCK;
+	map[0][13][50] = ROCK;
 
 	// 기타 초기 설정 필요 시 추가
 }
@@ -321,16 +330,18 @@ void sandworm_attack() {
 }
 // 샌드웜의 배설 (스파이스 매장지 생성)
 void sandworm_excrete() {
-	int a = rand() % 100;
-	if (a < 10) {  // 약 10% 확률로 배설
-		POSITION excrete_pos = sandworm.pos;
-		map[0][excrete_pos.row][excrete_pos.column] = 'S'; // 스파이스 매장지 생성
-		
-		// 시스템 메시지 추가
-		if (resource.spice < resource.spice_max) {
-			resource.spice++;
+	if (resource.spice <= resource.spice_max) {
+		int a = rand() % 100;
+		if (a < 10) {  // 약 10% 확률로 배설
+			POSITION excrete_pos = sandworm.pos;
+			map[0][excrete_pos.row][excrete_pos.column] = 'S'; // 스파이스 매장지 생성
+
+			// 시스템 메시지 추가
+			if (resource.spice < resource.spice_max) {
+				resource.spice++;
+			}
+			add_system_message("샌드웜이 스파이스를 배설했습니다!");
 		}
-		add_system_message("샌드웜이 스파이스를 배설했습니다!");
 	}
 }
 void update_sandworm() {

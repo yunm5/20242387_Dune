@@ -78,12 +78,14 @@ void display_map(char map[N_LAYER][MAP_HEIGHT][MAP_WIDTH]) {
 
 				// 색깔 지정
 				switch (element) {
-				case 'B': color = COLOR_BLUE; break;  // 본진
-				case 'H': color = COLOR_GREEN; break; // 하베스터
-				case '5': color = COLOR_YELLOW; break; // 스파이스 매장지
-				case 'P': color = COLOR_BLACK; break;  // 장판
-				case 'W': color = COLOR_BROWN; break;  // 샌드웜
-				case 'R': color = COLOR_GRAY; break;   // 바위
+				case BASE_P: color = COLOR_BLUE; break;  // 본진
+				case HARVESTER_P: color = COLOR_BLUE; break; // 하베스터
+				case BASE_H: color = COLOR_RED; break;  // 본진
+				case HARVESTER_H: color = COLOR_RED; break;
+				case SPICE: color = COLOR_PURPLE; break; // 스파이스 매장지
+				case PLATE: color = COLOR_WHITE; break;  // 장판
+				case SANDWORM: color = COLOR_YELLOW; break;  // 샌드웜
+				case ROCK: color = COLOR_GRAY; break;   // 바위
 				default: color = COLOR_DEFAULT; break;
 				}
 
