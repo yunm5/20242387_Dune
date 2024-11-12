@@ -81,13 +81,11 @@ typedef struct {
 	int next_move_time;   // 다음 이동 시점
 } OBJECT_INFO;
 /*==================== 샌드 웜 정의  ===========================*/
+// 샌드웜과 관련된 정의
 typedef struct {
-	POSITION pos;           // 샌드 웜의 현재 위치
-	int health;             // 샌드 웜의 체력
-	int move_period;        // 이동 주기 (ms 단위)
-	int next_move_time;     // 다음 이동 시간
-	int length;             // 샌드 웜 길이 (보너스 1)
-} SAND_WORM;
+	POSITION pos;
+	int last_defecate_time;  // 마지막 배설 시간
+} Sandworm;
 
 /* ================= 위치와 방향(2) =================== */
 // 편의성을 위한 함수들. KEY, POSITION, DIRECTION 구조체들을 유기적으로 변환
