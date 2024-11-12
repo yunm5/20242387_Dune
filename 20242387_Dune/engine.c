@@ -52,6 +52,7 @@ OBJECT_INFO unit = {
 	.next_move_time = 1000               // 다음 이동 시점
 };
 
+SAND_WORM sandworm = { {5, 5}, 10000, 2000, 0, 1 };  // 샌드웜 초기 설정
 
 /* ================= main() =================== */
 int main(void) {
@@ -80,6 +81,8 @@ int main(void) {
 			default: break;
 			}
 		}
+		update_sandworm();
+   
 
 		// 샘플 오브젝트 동작
 		sample_obj_move();
@@ -266,5 +269,57 @@ void check_double_click(KEY key) {
 	else {
 		// 더블 클릭이 아닌 경우
 		cursor_move(ktod(key));  // 한 칸 이동
+	}
+}
+
+POSITION find_nearest_unit(POSITION worm_pos) {
+	POSITION closest_unit = { -1, -1 };
+	int min_distance = MAP_WIDTH + MAP_HEIGHT;
+
+	for (int row = 0; row < MAP_HEIGHT; row++) {
+		for (int col = 0; col < MAP_WIDTH; col++) {
+			if (map[1][row][col] == 'H') {  // 하베스터 유닛 예시
+				int distance = abs(row - worm_pos.row) + abs(col - worm_pos.column);
+				if (distance < min_distance) {
+					min_distance = distance;
+					closest_unit.row = row;
+					closest_unit.column = col;
+				}
+			}
+		}
+	}
+	return closest_unit;
+}
+// 샌드웜 이동 함수
+void move_sandworm() {
+	if (clock() < sandworm.next_move_time) return;
+
+	POSITION target_pos = find_nearest_unit(sandworm.pos);
+	if (target_pos.row != -1 && target_pos.column != -1) {
+		DIRECTION dir = get_direction(sandworm.pos, target_pos);
+		sandworm.pos = pmove(sandworm.pos, dir);
+	}
+
+	sandworm.next_move_time = clock() + sandworm.move_period;
+}
+// 샌드웜의 유닛 공격 및 섭취
+void sandworm_attack() {
+	POSITION pos = sandworm.pos;
+	if (map[1][pos.row][pos.column] == 'H') {  // 하베스터 유닛을 공격하는 예시
+		map[1][pos.row][pos.column] = EMPTY;
+		sandworm.health += 500;  // 섭취 후 샌드웜 체력 증가
+
+		// 시스템 메시지 추가
+		add_system_message("샌드웜이 유닛을 섭취했습니다!");
+	}
+}
+// 샌드웜의 배설 (스파이스 매장지 생성)
+void sandworm_excrete() {
+	if (rand() % 100 < 10) {  // 약 10% 확률로 배설
+		POSITION excrete_pos = sandworm.pos;
+		map[0][excrete_pos.row][excrete_pos.column] = 'S'; // 스파이스 매장지 생성
+
+		// 시스템 메시지 추가
+		add_system_message("샌드웜이 스파이스를 배설했습니다!");
 	}
 }
