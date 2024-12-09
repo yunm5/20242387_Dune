@@ -39,6 +39,11 @@
 #define COLOR_GRAY 8
 #define COLOR_DEFAULT 0
 
+#define CMD1_POS (POSITION){19, 61}    // 첫 번째 명령창 시작 위치
+#define CMD2_POS (POSITION){19, 71}   // 두 번째 명령창 시작 위치
+#define CMD3_POS (POSITION){19, 90}   // 세 번째 명령창 시작 위치
+#define CMD4_POS (POSITION){19, 110}   // 네 번째 명령창 시작 위치
+
 
 /*======방향키 더블 클릭=======*/
 #define DOUBLE_CLICK_THRESHOLD 300 // ms 기준

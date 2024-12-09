@@ -40,7 +40,7 @@ void display(
 	display_cursor(cursor);
 	display_system_message();
 	display_object_info(unit);
-	//display_commands();
+	display_commands();
 	// ...
 }
 
@@ -157,4 +157,17 @@ void add_system_message(const char* msg) {
 	// 새로운 메시지 추가
 	snprintf(messages[message_count], sizeof(messages[message_count]), "%s", msg);
 	message_count++;
+}
+
+void display_command(const char* cmd, POSITION pos) {
+	gotoxy(pos);
+	printf("%s\n", cmd);
+}
+
+void display_commands() {
+	set_color(COLOR_DEFAULT);
+	display_command("Move", CMD1_POS);     // 첫 번째 명령창
+	display_command("Attack", CMD2_POS);   // 두 번째 명령창
+	display_command("Build", CMD3_POS);    // 세 번째 명령창
+	display_command("Harvest", CMD4_POS);  // 네 번째 명령창
 }
