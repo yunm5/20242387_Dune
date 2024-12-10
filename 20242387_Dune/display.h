@@ -27,6 +27,6 @@ void display(
 void display_system_message(void);
 void display_object_info(OBJECT_INFO* unit);
 //void display_map();
-//void update_sandworm();
+void add_system_message(const char* msg);
 void display_commands();
 #endif

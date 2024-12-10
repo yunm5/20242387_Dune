@@ -88,8 +88,8 @@ typedef struct {
 /*==================== 샌드 웜 정의  ===========================*/
 // 샌드웜과 관련된 정의
 typedef struct {
-	POSITION pos;
-	int last_defecate_time;  // 마지막 배설 시간
+	POSITION pos;               // 샌드웜의 현재 위치
+	int last_defecate_time;     // 마지막 배설 시간
 } Sandworm;
 
 /* ================= 위치와 방향(2) =================== */
